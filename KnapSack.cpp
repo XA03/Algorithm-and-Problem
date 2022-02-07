@@ -28,24 +28,35 @@ double Fraction(vector<item>stuff,int limitw){
             break;
         }
     }
-
-
     return maxprofit;
 }
 
-int ZeroOne(){
-    return 0;
+int ZeroOne(vector<item>stuff,int limitw){
+    vector<int> subdp(limitw+1, 0);
+    vector<vector<int>>dp(stuff.size()+1,subdp);   
+
+    for(int i=0;i<stuff.size();i++){
+        for(int j=0;j<=limitw;j++){
+            if(j-stuff[i].weight<0)dp[i+1][j]=dp[i][j];
+            else dp[i+1][j]=max(dp[i][j],dp[i][j-stuff[i].weight]+stuff[i].profit);
+        }   
+    }
+    
+    return dp[stuff.size()][limitw];
 }
 
 int main(){
     vector<item>things;
     struct item input;
+    int limit;
     for(int i=0;i<3;i++){
         cin>>input.profit>>input.weight;
         input.rate=(double)input.profit/input.weight;
         things.push_back(input);
     }
-    cout<<Fraction(things,8);
+    cin>>limit;
+    cout<<Fraction(things,limit)<<endl;
+    cout<<ZeroOne(things,limit);
 
     return 0;
 }
