@@ -22,16 +22,7 @@ int lcslen(string a,string b){
                 trace[i][j]=2;
             }
         }
-    }
-
-    for(auto i:trace){
-        for(auto j:i)cout<<j;
-        cout<<endl;
-    }
-    cout<<endl;
-
-
-
+    };
     int l=dp[a.size()][b.size()],x=a.size(),y=b.size();
     vector<char>lcs(l);
     while(l>0){
@@ -45,6 +36,7 @@ int lcslen(string a,string b){
     
     for(int i=0;i<lcs.size();i++)cout<<lcs[i];
     cout<<endl;
+
 
     return dp[a.size()][b.size()];
 }
@@ -70,14 +62,6 @@ int lcslen(vector<int>a,vector<int>b){
             }
         }
     }
-
-    for(auto i:trace){
-        for(auto j:i)cout<<j;
-        cout<<endl;
-    }
-    cout<<endl;
-
-
 
     int l=dp[a.size()][b.size()],x=a.size(),y=b.size();
     vector<int>lcs(l);
@@ -108,12 +92,33 @@ void LIS(vector<int>a){
     lcslen(a,sorta);
 }
 
+int lcsslen(string a,string b){
+    vector<int>subdp(b.size()+1,0);
+    vector<vector<int>>dp(a.size()+1,subdp);
 
+    for(int i=1;i<=a.size();i++){
+        for(int j=1;j<=b.size();j++){
+            if(a[i-1]==b[j-1]){
+                dp[i][j]=dp[i-1][j-1]+1;
+            }
+            else{
+                dp[i][j]=0;
+            }
+        }
+    }
+    int ans=0;
+    for(auto i:dp){
+        for(auto j:i)ans=max(ans,j);
+    }
+
+    return ans;
+}
 int main(){
 
     vector<int>arr={66,92,123,31,83,53,48,17,9,57,75};
-    LIS(arr);
-    
+    //LIS(arr);
+    cout<<lcslen("photograph", "tomography")<<endl;
+    cout << lcsslen("photograph", "tomography");
 
     return 0;
 }
