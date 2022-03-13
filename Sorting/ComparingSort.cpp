@@ -144,6 +144,10 @@ void QuickSort(vector<int>&arr,int left,int right){
     }
 }
 
+void HeapSort(vector<int>&arr){
+    
+}
+
 
 
 
