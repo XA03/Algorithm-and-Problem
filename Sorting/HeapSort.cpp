@@ -7,10 +7,10 @@ void heapify(vector<int>&arr,int index,int range){
         right=2*index+2,
         target;
 
-    if(left<=range && arr[left] > arr[index])target=left;
+    if(left<=range && arr[left] < arr[index])target=left;
     else target=index;
     
-    if(right<=range && arr[right] > arr[target])target=right;
+    if(right<=range && arr[right] < arr[target])target=right;
     
     if(target!=index){
         swap(arr[target],arr[index]);
