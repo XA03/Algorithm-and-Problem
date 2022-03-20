@@ -26,18 +26,14 @@ void dijkstra(vector<vector<int>>graph,int source){
         int pick=minDistance(distance,SpanningSet);
     
         SpanningSet[pick]=true;
-    
 
         for(int v=0;v<graph.size();v++){
             
             if(!SpanningSet[v] && graph[pick][v] && distance[pick]!=INT_MAX && distance[pick] + graph[pick][v] < distance[v]){
                 distance[v] = distance[pick] + graph[pick][v];
             }
-
         }
-    
     }    
-    
     for(int i=0;i<distance.size();i++)cout<<distance[i]<<" ";
 
 }
