@@ -18,21 +18,27 @@ void BFS(vector<vector<int>>graph,int source=0){
 
             while(!vertex.empty()){
                 int now=vertex.front();
+
+                cout<<now<<" ";
                 for(int j=0;j<graph.size();j++){
                     if(graph[now][j]!=0){
                         if(color[j]==0){
+                            cout<<j<<" ";
                             color[j]=1;
                             predecessor[j]=now;
                             vertex.push(j);
                         }
                     }
                 }
+                cout<<endl;
                 vertex.pop();
                 color[now]=2;
             }
         }
         index=i;
     }
+
+    cout<<endl;
 
     for(int i=0;i<predecessor.size();i++){
 
