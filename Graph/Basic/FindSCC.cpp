@@ -49,7 +49,7 @@ void DFSvisit(vector<vector<int>>graph,vector<int>&color,vector<int>&predecessor
     color[vertex]=1;
     discover[vertex]= ++time;
     for(int i=0;i<color.size();i++){
-        if(graph[vertex][i]!=0){
+        if(graph[vertex][i]!=0 && graph[vertex][i]!=-99 ){// -99 0表不通  0可表自身
             if(color[i]==0){
                 cout<<i<<" ";
                 predecessor[i]=vertex;

@@ -6,7 +6,7 @@ void DFSvisit(vector<vector<int>>graph,vector<int>&color,vector<int>&predecessor
     color[vertex]=1;
     discover[vertex]= ++time;
     for(int i=0;i<color.size();i++){
-        if(graph[vertex][i]!=0){
+        if(graph[vertex][i]!=0 && graph[vertex][i]!=-99){ //-99表不通 0除表不通外也可以表自身
             if(color[i]==0){
                 cout<<i<<" ";
                 predecessor[i]=vertex;
@@ -62,8 +62,18 @@ int main(){
                                 {0,1,0,0,0,0,0,0},
                                 {0,0,0,0,1,0,0,1},
                                 {0,0,0,0,0,0,1,0}
-                             };
+                             },
 
+    g3=
+    {
+        {0,3,-2,-99,-99,-99,-99},
+        {-99,0,-99,-4,4,-99,-99},
+        {-99,-99,0,-99,5,6,-99},
+        {-99,-99,-99,0,-99,8,2},
+        {-99,-99,-99,-3,0,-99,-2},
+        {-99,-99,-99,-99,-99,0,2},
+        {-99,-99,-99,-99,-99,-99,0}
+    };
 
 
     DFS(g,0);
@@ -71,6 +81,8 @@ int main(){
     cout<<"\n\n";
 
     DFS(g2,0);
+
+    DFS(g3,0);
 
     return 0;
 }

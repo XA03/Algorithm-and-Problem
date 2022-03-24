@@ -2,6 +2,16 @@
 
 using namespace std;
 
+void relaxation(vector<int>&distance,vector<int>&predecessor,int v1,int v2,int v1v2){
+    if(distance[v2]>distance[v1]+v1v2){
+
+        distance[v2]=distance[v1]+v1v2;
+        predecessor[v2]=v1;
+    }
+}
+
+
+
 void bubblesort(vector<int>&a,vector<int>&b){
     bool end=false;
 
@@ -22,9 +32,8 @@ void DFSvisit(vector<vector<int>>graph,vector<int>&color,vector<int>&predecessor
     color[vertex]=1;
     discover[vertex]= ++time;
     for(int i=0;i<color.size();i++){
-        if(graph[vertex][i]!=0 && graph[vertex][i]!=-99){ 
+        if(graph[vertex][i]!=0 && graph[vertex][i]!=-99){// 這裡是指當路通時的條件 也就是說你的圖上不通的數字也要被納入考量 0代表的是自己(自己跟自己不需DFS)
             if(color[i]==0){
-                cout<<i<<endl;
                 predecessor[i]=vertex;
                 DFSvisit(graph,color,predecessor,discover,finish,i,time);
             }
@@ -35,55 +44,46 @@ void DFSvisit(vector<vector<int>>graph,vector<int>&color,vector<int>&predecessor
 }
 
 
-void DFS(vector<vector<int>>graph,int source=0){
+void DAG(vector<vector<int>>graph,int source=0){
     vector<int>color(graph.size(),0),
                predecessor(graph.size(),-1),
                discover(graph.size(),0),
                finish(graph.size(),0),
-               orderfinish(graph.size(),0);
-    int time=0,index=source;
+               orderfinish(graph.size(),0),
+               distance(graph.size(),100);
+               
+    int time=0,index=source,noway=-99;
 
     for(int i=0;i<graph.size();i++){
         if(color[index]==0){
-            cout<<index<<endl;
             DFSvisit(graph,color,predecessor,discover,finish,index,time);
         }
         index=i;
     }
-  
-    for(int i=0;i<finish.size();i++)cout<<finish[i]<<" ";
-    cout<<endl;
 
-    for(int i=0;i<orderfinish.size();i++)orderfinish[i]=i;
+    for(int i=0;i<orderfinish.size();i++){
+        predecessor[i]=-1;
+        orderfinish[i]=i;
+    }
     bubblesort(finish,orderfinish);
-    cout<<endl;
-    for(int i=0;i<orderfinish.size();i++)cout<<orderfinish[i]<<" ";
 
+
+    distance[source]=0;
+    for(int j=0;j<graph.size();j++){
+        for(int k=0;k<graph.size();k++){
+            if(graph[orderfinish[j]][k]!=noway && graph[orderfinish[j]][k]!=0)
+                relaxation(distance,predecessor,orderfinish[j],k,graph[orderfinish[j]][k]);
+        }
+    }
 }
+
 
 
 
 
 int main(){
 
-    vector<vector<int>> g={
-        {0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},
-        {0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
-        {0,0,0,0,0,0,0,0,1,1,0,1,1,0,0},
-        {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,1,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-    },
-    g2=
+    vector<vector<int>> g=
     {
         {0,3,-2,-99,-99,-99,-99},
         {-99,0,-99,-4,4,-99,-99},
@@ -94,9 +94,8 @@ int main(){
         {-99,-99,-99,-99,-99,-99,0}
     };
 
-    //DFS(g,0);
+    DAG(g,0);
 
-    DFS(g2,0);
 
 
 
