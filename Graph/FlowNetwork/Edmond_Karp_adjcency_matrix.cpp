@@ -26,10 +26,10 @@ bool BFSfindpath(vector<vector<int>>graph,vector<int>&predecessor,int source,int
         q.pop();
     }
     
-    return visited[termination]==1;
+    return visited[termination]==true;
 }
 
-int FindMinCapacity(vector<vector<int>>graph,vector<int>&predecessor,int termination){
+int FindMinCapacity(vector<vector<int>>graph,vector<int>predecessor,int termination){
     int min=INT_MAX;
 
     for(int index=termination;predecessor[index]!=-1;index=predecessor[index]){
@@ -45,7 +45,7 @@ int Ford_Fulkerson(vector<vector<int>>graph,int source,int termination){
     vector<int>predecessor(graph.size(),-1);
     vector<vector<int>>residual=graph;
 
-    while(BFSfindpath(graph,predecessor,source,termination)){
+    while(BFSfindpath(residual,predecessor,source,termination)){
         int flow=FindMinCapacity(residual,predecessor,termination);
         maxflow+=flow;
         
@@ -67,7 +67,18 @@ int main(){
     vector<int>t(6,0);
     vector<vector<int>>g(6,t);
 
-    cout<<"123";
+    AddEdge(g,0, 1, 9);
+    AddEdge(g,0, 3, 9);
+    AddEdge(g,1, 2, 3);
+    AddEdge(g,1, 3, 8);
+    AddEdge(g,2, 4, 2);
+    AddEdge(g,2, 5, 9);
+    AddEdge(g,3, 2, 7);
+    AddEdge(g,3, 4, 7);
+    AddEdge(g,4, 2, 4);
+    AddEdge(g,4, 5, 8);
+
+    Ford_Fulkerson(g,0,5);
 
     return 0;
 }
