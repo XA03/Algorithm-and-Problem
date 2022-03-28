@@ -37,6 +37,7 @@ int FindMinCapacity(vector<vector<int>>graph,vector<int>predecessor,int terminat
             min=graph[predecessor[index]][index];
         }
     }
+
     return min;
 }
 
@@ -56,7 +57,7 @@ int Ford_Fulkerson(vector<vector<int>>graph,int source,int termination){
         }
     }
 
-    printf("MaxFlow = %d",maxflow);
+    printf("MaxFlow = %d\n",maxflow);
 
     return maxflow;
 }
@@ -66,6 +67,13 @@ int main(){
     //we define edge(x,y)=0 if edge isn't exist in directed weighted graph.
     vector<int>t(6,0);
     vector<vector<int>>g(6,t);
+
+    vector<vector<int>>test={
+        {0,10000,10000,0},
+        {0,0,1,10000},
+        {0,0,0,10000},
+        {0,0,0,0}
+    };
 
     AddEdge(g,0, 1, 9);
     AddEdge(g,0, 3, 9);
@@ -79,6 +87,8 @@ int main(){
     AddEdge(g,4, 5, 8);
 
     Ford_Fulkerson(g,0,5);
+
+    Ford_Fulkerson(test,0,3);
 
     return 0;
 }

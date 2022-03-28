@@ -6,26 +6,29 @@ void AddEdge(vector<vector<int>>&graph,int s,int t,int capacity){
     graph[s][t]=capacity;
 }
 
+void DFSvisit(vector<vector<int>>graph,vector<int>&predecessor,vector<bool>&visited,int vertex){
+    visited[vertex]=true;
+    for(int i=0;i<graph.size();i++){
+        if(graph[vertex][i]!=0 && visited[i]==false){
+            predecessor[i]=vertex;
+            DFSvisit(graph,predecessor,visited,i);
+        }
+    }
+}
+
 bool DFSfindpath(vector<vector<int>>graph,vector<int>&predecessor,int source,int termination){
-    stack<int>s;
     vector<bool>visited(graph.size(),false);
     for(int i=0;i<graph.size();i++)predecessor[i]=-1;
     
-    s.push(source);
-    visited[source]=true;
+    int cur=source;
 
-    while(!s.empty()){
-        int cur=s.top();
-        s.pop();
-        for(int i=0;i<graph.size();i++){
-            if(graph[cur][i]!=0 && visited[i]==false){
-                s.push(i);
-                visited[i]=true;
-                predecessor[i]=cur;
-            }
+    for(int i=0;i<graph.size();i++){
+        if(visited[cur]==false){
+            DFSvisit(graph,predecessor,visited,cur);
         }
+        cur=i;
     }
-    
+
     return visited[termination]==true;
 }
 
@@ -56,7 +59,7 @@ int Ford_Fulkerson(vector<vector<int>>graph,int source,int termination){
         }
     }
 
-    printf("MaxFlow = %d",maxflow);
+    printf("MaxFlow = %d\n",maxflow);
 
     return maxflow;
 }
@@ -66,6 +69,14 @@ int main(){
     //we define edge(x,y)=0 if edge isn't exist in directed weighted graph.
     vector<int>t(6,0);
     vector<vector<int>>g(6,t);
+
+    vector<vector<int>>test={
+        {0,10000,10000,0},
+        {0,0,1,10000},
+        {0,0,0,10000},
+        {0,0,0,0}
+    };
+
 
     AddEdge(g,0, 1, 9);
     AddEdge(g,0, 3, 9);
@@ -79,6 +90,9 @@ int main(){
     AddEdge(g,4, 5, 8);
 
     Ford_Fulkerson(g,0,5);
+
+
+    Ford_Fulkerson(test,0,3);
 
     return 0;
 }
