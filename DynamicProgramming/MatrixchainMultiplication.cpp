@@ -2,6 +2,11 @@
 
 using namespace std;
 
+
+
+
+
+
 void prt(vector<vector<int>>s,int i,int j){
     //print result.
     if(i==j)cout<<i;
@@ -13,8 +18,27 @@ void prt(vector<vector<int>>s,int i,int j){
     }
 }
 
+int Matrixchainr(vector<vector<int>>&dpm,vector<vector<int>>&s,vector<int>p,int i,int j){
+    if(i==j){
+        dpm[i][j]=0;
+        return dpm[i][j];
+    }
+    dpm[i][j]=INT_MAX;
+    for(int k=i;k<j;k++){
+      int temp=Matrixchainr(dpm,s,p,i,k)+Matrixchainr(dpm,s,p,k+1,j)+p[i-1]*p[k]*p[j];
+      if(temp<dpm[i][j]){
+          dpm[i][j]=temp;
+          s[i][j]=k;
+      }
+    }
+    return dpm[i][j];
+}
+
 
 void Matrixchain(vector<int>p){
+
+    //iteration version
+
     vector<int>subdp(p.size(),0);
     vector<vector<int>>dpm(p.size(),subdp),
                        s=dpm;
@@ -48,7 +72,13 @@ void Matrixchain(vector<int>p){
 
 int main(){
 
-    vector<int>p={2,4,3,2,5,1}; 
+    vector<int>p={2,4,3,2,5,1};
+    vector<int>sub(p.size(),0);
+    vector<vector<int>>dpm(p.size(),sub),s=dpm;
+
+    Matrixchainr(dpm,s,p,1,5);
+    prt(s,1,5);
+    
     Matrixchain(p);
 
 
