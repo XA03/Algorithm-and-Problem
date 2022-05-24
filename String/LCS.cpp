@@ -23,6 +23,7 @@ int lcslen(string a,string b){
             }
         }
     };
+    
     int l=dp[a.size()][b.size()],x=a.size(),y=b.size();
     vector<char>lcs(l);
     while(l>0){
@@ -117,8 +118,8 @@ int main(){
 
     vector<int>arr={66,92,123,31,83,53,48,17,9,57,75};
     //LIS(arr);
-    cout<<lcslen("photograph", "tomography")<<endl;
-    cout << lcsslen("photograph", "tomography");
+    cout<<lcslen("photograph","tomography")<<endl;
+    cout<<lcsslen("photograph","tomography");
 
     return 0;
 }

@@ -65,6 +65,14 @@ void Matrixchain(vector<int>p){
         cout<<endl;
     }
 
+    cout<<endl;
+
+    for(auto i:s){
+        for(auto j:i)cout<<j<<" ";
+        cout<<endl;
+    }
+
+
     prt(s,1,n);
 }
 
@@ -72,13 +80,13 @@ void Matrixchain(vector<int>p){
 
 int main(){
 
-    vector<int>p={2,4,3,2,5,1};
+    vector<int>p={12,5,10,2,5,4};
     vector<int>sub(p.size(),0);
     vector<vector<int>>dpm(p.size(),sub),s=dpm;
 
-    Matrixchainr(dpm,s,p,1,5);
+    /*Matrixchainr(dpm,s,p,1,p.size()-1);
     prt(s,1,5);
-    
+    */
     Matrixchain(p);
 
 
