@@ -58,7 +58,7 @@ string infix_to_prefix(string infix){
                 s.pop();
             }
             else{
-                while(!s.empty() && pri(infix[i])<=pri(s.top())){
+                while(!s.empty() && pri(infix[i])<pri(s.top())){
                     ret+=s.top();
                     s.pop();
                 }
