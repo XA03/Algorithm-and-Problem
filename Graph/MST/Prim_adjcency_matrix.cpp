@@ -14,15 +14,15 @@ int Minweighted(vector<int>&cost,vector<bool>&visit){
     return index;
 }
 
-void PrimMST(vector<vector<int>>graph,int source=0){
+int PrimMST(vector<vector<int>>graph,int source=0){
     vector<int>cost(graph.size(),INT_MAX),predecessor(graph.size(),-1),successor(graph.size(),-1);
     vector<bool>visit(graph.size(),false);
+    int ret=0;
 
     cost[source]=0;
 
     for(int i=0;i<graph.size();i++){
         int next=Minweighted(cost,visit);
-          
         visit[next]=true;
         successor[source]=next;
         for(int j=0;j<graph.size();j++){
@@ -41,14 +41,16 @@ void PrimMST(vector<vector<int>>graph,int source=0){
         cout<<"\n\n";
 
     }
-    
+    for(int i=0;i<cost.size();i++)ret+=cost[i];
+
+    return ret;
 }
 
 
 int main(){
 
     vector<vector<int>>g={
-        {0,5,0,0,0,3,0},
+        {0,5,0,0,0,3,4},
         {5,0,10,0,1,0,0},
         {0,10,0,5,0,0,8},
         {0,0,5,0,7,0,9},
@@ -57,7 +59,7 @@ int main(){
         {0,4,8,9,2,0,0}
                         };
 
-    PrimMST(g,2);
+    cout<<PrimMST(g,2);
 
 
 
