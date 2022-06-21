@@ -3,7 +3,7 @@
 using namespace std;
 
 int findset(vector<int>parent,int target){
-    while(parent[target]!=target)target=parent[target];
+    while(parent[target]!=-1)target=parent[target];
     return target;
 }
 
@@ -11,14 +11,14 @@ void setunion(vector<int>&parent,int a,int b){
     int pa=findset(parent,a);
     int pb=findset(parent,b);
     
-    parent[pa]=pb;
+    parent[pa]=pb;//b is a parent.
 }
 
 int KruskalMST(vector<vector<int>>mat){
     vector<int>disjointset(mat.size(),0);
     int ret=0,treeedge=0;
 
-    for(int i=0;i<disjointset.size();i++)disjointset[i]=i;
+    for(int i=0;i<disjointset.size();i++)disjointset[i]=-1;
     
     while(treeedge<mat.size()-1){
         int minimum=INT_MAX,v1=-1,v2=-1;
@@ -33,7 +33,7 @@ int KruskalMST(vector<vector<int>>mat){
         }
 
         setunion(disjointset,v1,v2);
-        printf("Edge %d %d ³Q¥[¤JMST\n",v1,v2);
+        printf("Edge %d %d in MST\n",v1,v2);
         ret+=minimum;
         
         treeedge++;
@@ -52,9 +52,20 @@ int main(){
         {INT_MAX, 3, INT_MAX, INT_MAX, 7},
         {6, 8, INT_MAX, INT_MAX, 9},
         {INT_MAX, 5, 7, 9, INT_MAX},
+    },
+    b={
+        {
+        {69,5,69,69,69,3,69},
+        {5,69,10,69,1,69,4},
+        {69,10,69,5,69,69,8},
+        {69,69,5,69,7,69,9},
+        {69,1,69,7,69,6,2},
+        {3,69,69,69,6,69,69},
+        {69,4,8,9,2,69,69}
+                        }
     };
 
-    KruskalMST(g);
+    KruskalMST(b);
 
     return 0;
 }
