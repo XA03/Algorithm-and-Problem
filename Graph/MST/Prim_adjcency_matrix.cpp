@@ -19,22 +19,27 @@ void PrimMST(vector<vector<int>>graph,int source=0){
     vector<bool>visit(graph.size(),false);
 
     cost[source]=0;
-    
+
     for(int i=0;i<graph.size();i++){
         int next=Minweighted(cost,visit);
+          
         visit[next]=true;
+        successor[source]=next;
         for(int j=0;j<graph.size();j++){
-            if(visit[j]==false && graph[next][j]!=0 && graph[next][j]<cost[j]){
-                predecessor[j]=next;
+            if(visit[j]==false && graph[next][j]!=0 && graph[next][j]<cost[j])  //update the candidate of edges when edge cost down
                 cost[j]=graph[next][j];
-            }
         }
+        if(source!=next)predecessor[next]=source;
+        source=next;
+        printf("select the vertex %d\n",next);
+        for(int i=0;i<graph.size();i++)printf("%3d ",cost[i]);
+        cout<<endl;
+        for(int i=0;i<graph.size();i++)printf("%3d ",predecessor[i]);
+        cout<<endl;
+        for(int i=0;i<graph.size();i++)printf("%3d ",successor[i]);
 
-        cout<<next<<endl;
-        for(int i=0;i<graph.size();i++)cout<<cost[i]<<" ";
-        cout<<endl;
-        for(int i=0;i<graph.size();i++)cout<<visit[i]<<" ";
-        cout<<endl;
+        cout<<"\n\n";
+
     }
     
 }

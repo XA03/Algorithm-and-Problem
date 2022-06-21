@@ -33,7 +33,7 @@ int KruskalMST(vector<vector<int>>mat){
         }
 
         setunion(disjointset,v1,v2);
-        printf("Edge %d %d ³Q¥[¤JMST\n",v1,v2);
+        printf("Edge %d %d Â³QÂ¥[Â¤JMST\n",v1,v2);
         ret+=minimum;
         
         treeedge++;
