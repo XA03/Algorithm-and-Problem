@@ -4,17 +4,14 @@ using namespace std;
 
 void relaxation(vector<int>&distance,vector<int>&predecessor,int v1,int v2,int v1v2){
     if(distance[v2]>distance[v1]+v1v2){
-
         distance[v2]=distance[v1]+v1v2;
         predecessor[v2]=v1;
     }
 }
 
 
-
 void bubblesort(vector<int>&a,vector<int>&b){
     bool end=false;
-
     for(int i=0;i<a.size()-1 && !end;i++){
         end=true;
             for(int j=0;j<a.size()-i-1;j++){
@@ -75,6 +72,9 @@ void DAG(vector<vector<int>>graph,int source=0){
                 relaxation(distance,predecessor,orderfinish[j],k,graph[orderfinish[j]][k]);
         }
     }
+
+    for(int i=0;i<distance.size();i++)cout<<distance[i]<<"  ";
+    
 }
 
 
@@ -94,7 +94,7 @@ int main(){
         {-99,-99,-99,-99,-99,-99,0}
     };
 
-    DAG(g,0);
+    DAG(g,2);
 
 
 

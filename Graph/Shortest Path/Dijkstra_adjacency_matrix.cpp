@@ -11,7 +11,6 @@ int minDistance(vector<int>distance,vector<bool>SpanningSet){
             min_index=v;
         }
     }
-
     return min_index;
 }
 
@@ -22,7 +21,7 @@ void dijkstra(vector<vector<int>>graph,int source){
 
     distance[source]=0;
 
-    for(int i=0;i<graph.size()-1;i++){
+    for(int i=0;i<graph.size()-2;i++){
         int pick=minDistance(distance,SpanningSet);
     
         SpanningSet[pick]=true;
@@ -50,11 +49,22 @@ int main(){
                              {0, 0, 4, 14, 10, 0, 2, 0, 0},
                              {0, 0, 0, 0, 0, 2, 0, 1, 6},
                              {8, 11, 0, 0, 0, 0, 1, 0, 7},
-                             {0, 0, 2, 0, 0, 0, 6, 7, 0}};
+                             {0, 0, 2, 0, 0, 0, 6, 7, 0}},
+    x={
+        {0,0,0,0,0,0,0,0},
+        {300,0,0,0,0,0,0,0},
+        {1000,800,0,0,0,0,0,0},
+        {0,0,1200,0,0,0,0,0,0},
+        {0,0,0,1500,0,250,0,0},
+        {0,0,0,1000,0,0,900,1400},
+        {0,0,0,0,0,0,0,1000},
+        {1700,0,0,0,0,0,0,0}
+    };
 
 
-    dijkstra(g,0);
 
+
+    dijkstra(x,4);
 
     return 0;
 }

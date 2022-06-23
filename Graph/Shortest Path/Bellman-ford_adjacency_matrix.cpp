@@ -6,15 +6,16 @@ void relaxation(vector<int>&distance,vector<int>&predecessor,int v1,int v2,int v
     if(distance[v2]>distance[v1]+v1v2){
         distance[v2]=distance[v1]+v1v2;
         predecessor[v2]=v1;
+        printf("v1=%d v2=%d distance[%d]=%d\n",v1,v2,v2,distance[v1]+v1v2);
     }
 }
 
 bool Bellman_ford(vector<vector<int>>graph,int source=0){
-    vector<int>distance(graph.size(),200),//³o¸Ì¤£¯à¥ÎINT_MAX ·|OverflowµM«áÅÜ¦¨¤@­Ó·¥¤p­È¡A³y¦¨«áÄòRelaxation¤j¤pÃö«Y¿ù»~¡C
+    vector<int>distance(graph.size(),200),//é€™è£¡ä¸èƒ½ç”¨INT_MAX æœƒOverflowç„¶å¾Œè®Šæˆä¸€å€‹æ¥µå°å€¼ï¼Œé€ æˆå¾ŒçºŒRelaxationå¤§å°é—œä¿‚éŒ¯èª¤ã€‚
                predecessor(graph.size(),-1);
     distance[source]=0;
 
-    int noway=-99;//ªí¥Ü¨S¦³³o±øedge
+    int noway=-99;//è¡¨ç¤ºæ²’æœ‰é€™æ¢edge
 
     for(int i=0;i<graph.size()-1;i++){
         for(int j=0;j<graph.size();j++){
@@ -51,13 +52,14 @@ int main(){
         {0,5,-99,-99,-99,-99},
         {-99,0,6,-99,-4,-99,-99},
         {-99,-99,0,-99,-3,-2},
-        {-99,-99,4,-99,-99,-99},
-        {-4,-99,-99,1,0,6},
-        {3,7,-99,-99,-99,-99}
+        {-99,-99,4,0,-99,-99},
+        {-99,-99,-99,1,0,6},
+        {3,7,-99,-99,-99,0}
     };
-    
-    if(Bellman_ford(g,0))cout<<"¨S¦³­tÀô\n";
-    else cout<<"¦³­tÀô\n";
+
+
+    if(Bellman_ford(g,0))cout<<"æ²’æœ‰è² ç’°\n";
+    else cout<<"æœ‰è² ç’°\n";
 
     return 0;
 }
